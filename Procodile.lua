@@ -61,12 +61,16 @@ local items = {
 	-- Itemlevel 120 - 100
 	[45058]		= 34473,			-- Commendation of Kael'thas
 	[45053]		= 34472,			-- Shard of Contempt
-	[33370] 	= 27683,			-- Quagmirran's Eye
 	[34321]		= 28418,			-- Shiffar's Nexus-Horn
 	[38346]		= 28370,			-- Bangle of Endless Blessings
+	[33370] 	= {27683,28190},	-- Quagmirran's Eye & Scarab of the Infinite Cycle
+--	[33370] 	= 27683,			-- Quagmirran's Eye
 --	[33370]		= 28190,			-- Scarab of the Infinite Cycle
 	[33649]		= 28034,			-- Hourglass of the Unraveller
+	[23684]		= 19288,			-- Darkmoon Card: Blue Dragon
 }
+
+
 
 local enchants = {
 	[28093]		= 2673,				-- Mongoose
@@ -483,24 +487,32 @@ function Procodile:ScanForProcs()
 			end
 
 			-- Item proc spells
-			for spell_id,spell_itemid in pairs(items) do
-				if spell_itemid == tonumber(itemId) then
-					
-					-- See if we are already tracking this item
-					local exists = false
-					for index, spell in pairs(db.tracked) do
-						if spell.id == spell_id then
-							exists = true
-							spell.found = true
+			for spell_id,value in pairs(items) do
+				local mutli_spell_items = {}
+				if type(value) == "table" then
+					mutli_spell_items = value
+				else
+					table.insert(mutli_spell_items, value)
+				end
+			
+				for _,spell_itemid in pairs(mutli_spell_items) do
+					if spell_itemid == tonumber(itemId) then
+						-- See if we are already tracking this item
+						local exists = false
+						for index, spell in pairs(db.tracked) do
+							if spell.id == spell_id then
+								exists = true
+								spell.found = true
+							end
 						end
+						
+						-- No, add it
+						if not exists then
+							self:AddSpell(spell_id, itemName, itemTexture)
+						end
+						
+						break
 					end
-					
-					-- No, add it
-					if not exists then
-						self:AddSpell(spell_id, itemName, itemTexture)
-					end
-					
-					break
 				end
 			end
 		end
@@ -875,7 +887,7 @@ function Procodile:StartProcCooldownFrames(proc)
 end
 
 function Procodile:UpdateCooldownActionSlots()
-	-- self:Print("Updating cooldown action slots")
+	self:Print("Updating cooldown action slots")
 	ClearTable(ProcActionSlots)
 	for key,proc in pairs(db.tracked) do
 	
