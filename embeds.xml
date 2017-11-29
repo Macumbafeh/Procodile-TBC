@@ -12,5 +12,4 @@
 		<Include file="lib\LibSink-2.0\lib.xml"/>
 		<Include file="lib\LibBars-1.0\lib.xml"/>
 		<Include file="lib\LibSharedMedia-3.0\lib.xml"/>
-		<Include file="lib\LibFubarPlugin-Mod-3.0\lib.xml"/>
 </Ui>

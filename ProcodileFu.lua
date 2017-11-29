@@ -1,6 +1,5 @@
 local Procodile = LibStub("AceAddon-3.0"):GetAddon("Procodile")
 local L = LibStub("AceLocale-3.0"):GetLocale("Procodile", false)
---ProcodileFu = Procodile:NewModule("FuBar", "LibFuBarPlugin-Mod-3.0")
 
 local MinimapPosition = 225
 

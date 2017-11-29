@@ -726,6 +726,8 @@ function Procodile:UNIT_INVENTORY_CHANGED(event, unit)
 	end
 end
 
+local DraggingProcSlotState = 0
+
 function Procodile:ACTIONBAR_SLOT_CHANGED(event, slot)
 	self:SchedulePostCheckActionSlot(slot)
 end
