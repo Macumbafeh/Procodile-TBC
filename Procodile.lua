@@ -876,6 +876,7 @@ end
 
 function Procodile:UpdateCooldownActionSlots()
 	-- self:Print("Updating cooldown action slots")
+	ClearTable(ProcActionSlots)
 	for key,proc in pairs(db.tracked) do
 	
 		-- Removing old cooldown frames
@@ -1040,6 +1041,9 @@ function Procodile:CheckActionSlots()
 		end
 	end
 	
-	-- Clearing 'ScheduledSlots' table like a pro
-	for k in next, ScheduledSlots do rawset(ScheduledSlots, k, nil) end
+	ClearTable(ScheduledSlots)
+end
+
+function ClearTable(mytable)
+	for k in next, mytable do rawset(mytable, k, nil) end
 end
