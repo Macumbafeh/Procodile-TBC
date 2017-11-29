@@ -77,9 +77,11 @@ local enchants = {
 }
 
 
-local ApplyKnownCooldowns = true
+
+local ApplyPredefinedCooldowns = true
+-- For those who are really sure about their cooldowns, you can hardcode them like below. (Feel free to add your entries)
+local PredefinedCooldowns = {
 -- [spellid]  	= cooldown,
-local knowncooldowns = {
 	[37198]		= 45,				-- Tome of Fiery Redemption
 	[34473]		= 30,				-- Commendation of Kael'thas
 }
@@ -552,8 +554,8 @@ function Procodile:AddSpell(spellid, itemname, itemicon, iscustom)
 		
 		-- Loading the cooldown if we know it aleady
 		local spellcd = 0
-		local knowncd = knowncooldowns[spellid]
-		if ApplyKnownCooldowns and knowncd then
+		local knowncd = PredefinedCooldowns[spellid]
+		if ApplyPredefinedCooldowns and knowncd then
 			spellcd = knowncd
 		end
 		
@@ -1037,5 +1039,7 @@ function Procodile:CheckActionSlots()
 			break
 		end
 	end
-	ScheduledSlots = {}
+	
+	-- Clearing 'ScheduledSlots' table like a pro
+	for k in next, ScheduledSlots do rawset(ScheduledSlots, k, nil) end
 end

@@ -23,8 +23,8 @@ function MinimapButton:Load()
 	local iconTexture = self:GetProcIcon()
 	icon:SetWidth(20); icon:SetHeight(20)
 	icon:SetTexture(iconTexture)
-	icon:SetTexCoord(0.05, 0.95, 0.05, 0.95)
-	icon:SetPoint('TOPLEFT', 7, -5)
+	icon:SetTexCoord(0, 1, 0, 1)
+	icon:SetPoint('TOPLEFT', 6, -5)
 	self.icon = icon
 
 	self:SetScript('OnEnter', self.OnEnter)
@@ -61,11 +61,11 @@ function MinimapButton:OnClick(button)
 end
 
 function MinimapButton:OnMouseDown()
-	self.icon:SetTexCoord(0, 1, 0, 1)
+	self.icon:SetTexCoord(0.05, 0.95, 0.05, 0.95)
 end
 
 function MinimapButton:OnMouseUp()
-	self.icon:SetTexCoord(0.05, 0.95, 0.05, 0.95)
+	self.icon:SetTexCoord(0, 1, 0, 1)
 end
 
 function MinimapButton:OnEnter()
@@ -139,7 +139,7 @@ end
 function MinimapButton:OnDragStart()
 	self.dragging = true
 	self:LockHighlight()
-	self.icon:SetTexCoord(0, 1, 0, 1)
+	self.icon:SetTexCoord(0.05, 0.95, 0.05, 0.95)
 	self:SetScript('OnUpdate', self.OnUpdate)
 	GameTooltip:Hide()
 end
@@ -147,7 +147,7 @@ end
 function MinimapButton:OnDragStop()
 	self.dragging = nil
 	self:SetScript('OnUpdate', nil)
-	self.icon:SetTexCoord(0.05, 0.95, 0.05, 0.95)
+	self.icon:SetTexCoord(0, 1, 0, 1)
 	self:UnlockHighlight()
 end
 
