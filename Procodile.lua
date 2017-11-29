@@ -358,7 +358,7 @@ Procodile.options = {
 							        get=function() return db.actionbarscds end,
 							        set=function() 
 										db.actionbarscds = not db.actionbarscds
-										Procodile:UpdateCooldownActionSlots()
+										Procodile:UpdateActionbarCooldowns()
 									end,
 							},
                        }
@@ -384,7 +384,7 @@ function Procodile:OnInitialize()
 	self.optionsFrame = LibStub("AceConfigDialog-3.0"):AddToBlizOptions("Procodile", "Procodile")
 
 	self:SetupBars()
-	self:UpdateCooldownActionSlots()
+	self:UpdateActionbarCooldowns()
 	
 	self.Minimap:Load()
 	self:UpdateMinimapButton()
@@ -439,6 +439,9 @@ function Procodile:OnDisable()
 end
 
 function Procodile:ScanForProcs()
+	
+	self:RemoveAllProcCooldownFrames()
+
 	-- Mark all tracked spells as not found after this inventory change
 	for index, spell in ipairs(db.tracked) do
 		spell.found = false
@@ -526,8 +529,9 @@ function Procodile:ScanForProcs()
 		end
 	end
 	
-	self:UpdateCooldownActionSlots()
+	self:UpdateActionbarCooldowns()
 	self.Minimap:UpdateIcon()	
+	--self:ScheduleActionbarUpdate()
 	--ProcodileFu:OnUpdateFuBarText()
 end
 
@@ -743,7 +747,7 @@ end
 local DraggingProcSlotState = 0
 
 function Procodile:ACTIONBAR_SLOT_CHANGED(event, slot)
-	self:SchedulePostCheckActionSlot(slot)
+	self:ScheduleActionSlotCheck(slot)
 end
 
 function Procodile:COMBAT_LOG_EVENT_UNFILTERED(event, timestamp, eventtype, srcGUID, srcName, srcFlags, dstGUID, dstName, dstFlags, ...)
@@ -853,6 +857,8 @@ function Procodile:Toggle(enabled)
 	--ProcodileFu:OnUpdateFuBarText()
 end
 
+-- [[ Proc related cooldown frames and action slots ]] --
+
 local CooldownFrames = {}
 local ProcActionSlots = {}
 
@@ -886,8 +892,10 @@ function Procodile:StartProcCooldownFrames(proc)
 	end
 end
 
-function Procodile:UpdateCooldownActionSlots()
-	self:Print("Updating cooldown action slots")
+-- [[ Updating cooldowns ]] --
+
+function Procodile:UpdateActionbarCooldowns()
+	--self:Print("Updating cooldown action slots")
 	ClearTable(ProcActionSlots)
 	for key,proc in pairs(db.tracked) do
 	
@@ -939,8 +947,25 @@ function Procodile:UpdateProcCooldownFrames(proc)
 			end
 		end
 	end 
- 	
 end
+
+
+function Procodile:RemoveAllProcCooldownFrames()
+	for key,proc in pairs(db.tracked) do
+		local pcdframes = CooldownFrames[proc]
+		if pcdframes then
+			for key,pcdframe in pairs(pcdframes) do
+				if pcdframe then
+					pcdframe:Hide()
+					pcdframe:SetParent(nil) 
+					pcdframes[key] = nil
+				end 
+			end
+		end
+	end
+end
+
+-- [[ ActionButton and ActionSlot search for procs ]] --
 
 function Procodile:GetActionSlotsForProc(proc) 
 	local bongos = IsAddOnLoaded("Bongos")
@@ -1011,7 +1036,42 @@ function SlotMatchesProc(slot,proc)
 	return match
 end
 
--- Minimap
+-- [[ Scheduled updates ]] --
+
+local ScheduledSlots = {}
+
+function Procodile:ScheduleActionSlotCheck(slot)
+	table.insert(ScheduledSlots, slot)
+end
+
+local ActionBarCooldownsNeedUpdate = false
+
+function Procodile:ScheduleActionbarUpdate()
+	ActionBarCooldownsNeedUpdate = true
+end
+
+function Procodile:CheckActionSlots()
+	local update = false
+	for _, slot in pairs(ScheduledSlots) do
+		if self:IsProcActionSlot(slot) or self:IsNewProcActionSlot(slot) then
+			update = true
+			break
+		end
+	end
+	ClearTable(ScheduledSlots)
+	
+	update = update or ActionBarCooldownsNeedUpdate
+	if update then 
+		self:UpdateActionbarCooldowns()
+		ActionBarCooldownsNeedUpdate = false
+	end
+end
+
+function ClearTable(mytable)
+	for k in next, mytable do rawset(mytable, k, nil) end
+end
+
+-- [[ Minimap ]] --
 
 function Procodile:SetShowMinimap(enable)
 	db.showMinimap = enable or false
@@ -1037,25 +1097,4 @@ end
 
 function Procodile:GetMinimapButtonPosition()
 	return db.minimapPos
-end
-
-local ScheduledSlots = {}
-
-function Procodile:SchedulePostCheckActionSlot(slot)
-	table.insert(ScheduledSlots, slot)
-end
-
-function Procodile:CheckActionSlots()
-	for _, slot in pairs(ScheduledSlots) do
-		if self:IsProcActionSlot(slot) or self:IsNewProcActionSlot(slot) then
-			self:UpdateCooldownActionSlots()
-			break
-		end
-	end
-	
-	ClearTable(ScheduledSlots)
-end
-
-function ClearTable(mytable)
-	for k in next, mytable do rawset(mytable, k, nil) end
 end
