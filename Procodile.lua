@@ -704,7 +704,8 @@ function Procodile:Tick()
 			proc.totaltime = proc.totaltime + 1
 		end
 	end
-	self:CheckActionSlots()
+	--self:CheckActionSlots()
+	self:PerformScheduledProcScan()
 end
 
 function Procodile:TestBars()
@@ -741,6 +742,7 @@ end
 function Procodile:UNIT_INVENTORY_CHANGED(event, unit)
 	if unit == "player" then
 		self:ScanForProcs()
+		self:ScheduleProcsScan()
 	end
 end
 
@@ -748,6 +750,7 @@ local DraggingProcSlotState = 0
 
 function Procodile:ACTIONBAR_SLOT_CHANGED(event, slot)
 	self:ScheduleActionSlotCheck(slot)
+	self:CheckActionSlots()
 end
 
 function Procodile:COMBAT_LOG_EVENT_UNFILTERED(event, timestamp, eventtype, srcGUID, srcName, srcFlags, dstGUID, dstName, dstFlags, ...)
@@ -1046,6 +1049,7 @@ end
 
 local ActionBarCooldownsNeedUpdate = false
 
+-- This method is dead code
 function Procodile:ScheduleActionbarUpdate()
 	ActionBarCooldownsNeedUpdate = true
 end
@@ -1069,6 +1073,20 @@ end
 
 function ClearTable(mytable)
 	for k in next, mytable do rawset(mytable, k, nil) end
+end
+
+
+local ProcsNeedRescan = false 
+
+function Procodile:ScheduleProcsScan()
+	ProcsNeedRescan = true
+end
+
+function Procodile:PerformScheduledProcScan()
+	if ProcsNeedRescan then 
+		self:ScanForProcs()
+		ProcsNeedRescan = false
+	end
 end
 
 -- [[ Minimap ]] --
