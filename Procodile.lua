@@ -11,14 +11,23 @@ local items = {
 -- [spellid]  	= itemid,			-- Item name
 
 -- WEAPONS AND OFFHANDS
-	[38317]		= 31336,			-- Blade of Wizardry
 	[40408]		= 32375,			-- Bulwark of Azzinoth
-
+	[21165]		= {['type'] = 'sharedproc', 28439,28438,28437},	-- Dragonstrike, Dragonmaw, Drakefist Hammer
+	[34513]		= {['type'] = 'sharedproc', 28430,28429,28428},	-- Lionheart Executioner, Lionheart Champion, Lionheart Blade
+	[36041]		= 29962,			-- Heartrazor
+	--[unkno]		= 29348,            -- Bladefist
+	[16916]		= 23541,			-- Khorium Champion
+	[38282]		= 31318,			-- Singing Crystal Axe
+	[38307]		= 31331,			-- The Night Blade
+	[38293]		= 31323,			-- Don Santos' Famous Hunting Rifle
+	[38317]		= 31336,			-- Blade of Wizardry
+	
 -- RELICS
 	[43747]		= 33503,			-- Libram of Divine Judgement
-	[43749]		= 33507,			-- Stonebreaker's Totem
-	[43751]		= 33506,			-- Skycall Totem
-	
+	[43749]		= 33507,			-- Stonebreaker's Tote
+	[43738]		= 33509,			-- Idol of Terror
+	[43740]		= 33510,			-- Idol of the Unseen Moon
+
 -- ARMOR PIECES
 	[34585]		= 28578,			-- Masquerade Gown
 	[34597]		= 28602,			-- Robe of the Elder Scribes
@@ -30,14 +39,14 @@ local items = {
 	[35084]		= 29305, 			-- Band of the Eternal Sage
 	
 -- NECKLACES
---	[unkno]		= 34677,			-- Shattered Sun Pendant of Restoration (Aldor)	
---	[unkno]		= 34677,			-- Shattered Sun Pendant of Restoration (Scryers)	
---	[unkno]		= 34678,			-- Shattered Sun Pendant of Acumen (Aldor)	
---	[unkno]		= 34678,			-- Shattered Sun Pendant of Acumen (Scryers)	
+	[45478]		= 34677,			-- Shattered Sun Pendant of Restoration (Aldor)	
+--	[unkno]		= 34677,			-- Shattered Sun Pendant of Restoration (Scryers - Proc is 'Arcane Surge' healingeffect instead of a buff)	
+	[45479]		= 34678,			-- Shattered Sun Pendant of Acumen (Aldor)	
+--	[unkno]		= 34678,			-- Shattered Sun Pendant of Acumen (Scryers - Proc is 'Arcane Bolt' damageffect instead of a buff)
 	[45480]		= 34679,			-- Shattered Sun Pendant of Might (Aldor)	
---	[unkno]		= 34679,			-- Shattered Sun Pendant of Might (Scryers)	
---	[unkno]		= 34680,			-- Shattered Sun Pendant of Reslove (Aldor)	
---	[unkno]		= 34680,			-- Shattered Sun Pendant of Reslove (Scryers)	
+--	[unkno]		= 34679,			-- Shattered Sun Pendant of Might  (Scryers - Proc is 'Arcane Strike' damageffect instead of a buff)	
+	[45432]		= 34680,			-- Shattered Sun Pendant of Reslove (Aldor)	
+	[45431]		= 34680,			-- Shattered Sun Pendant of Reslove (Scryers)	
 	
 -- TRINKETS	
 	-- Itemlevel 160 - 130
@@ -49,8 +58,12 @@ local items = {
 	[40480]		= 32493,			-- Ashtongue Talisman of Shadows
 
 	-- Itemlevel 130 - 100
+	[37340]		= 30664,			-- Living Root of the Wildheart (Bear form		- Ursine Blessing (+4k armor))
+	[37341]		= 30664,			-- Living Root of the Wildheart (Cat form 		- Feline Blessing (+64 str))
+	[37342]		= 30664,			-- Living Root of the Wildheart (Tree form	 	- Sylvan Blessing (+324 healing))
+	[37343]		= 30664,			-- Living Root of the Wildheart (Moonking form 	- Lunar Blessing  (+140 sp))
+	[37344]		= 30664,			-- Living Root of the Wildheart (No form 		- Cenarion Blessing (+175 sp))
 	[38348]		= 30626,			-- Sextant of Unstable Currents
---	[unkno]		= 30664,			-- Living Root of the Wildheart
 	[37198]		= 30447,			-- Tome of Fiery Redemption
 	[42084]		= 30627,			-- Tsunami Talisman
 	[37174]		= 30450,			-- Warp-Spring Coil
@@ -63,9 +76,7 @@ local items = {
 	[45053]		= 34472,			-- Shard of Contempt
 	[34321]		= 28418,			-- Shiffar's Nexus-Horn
 	[38346]		= 28370,			-- Bangle of Endless Blessings
-	[33370] 	= {27683,28190},	-- Quagmirran's Eye & Scarab of the Infinite Cycle
---	[33370] 	= 27683,			-- Quagmirran's Eye
---	[33370]		= 28190,			-- Scarab of the Infinite Cycle
+	[33370] 	= {['type'] = 'sharedproc', 27683, 28190},	-- Quagmirran's Eye, Scarab of the Infinite Cycle
 	[33649]		= 28034,			-- Hourglass of the Unraveller
 	[23684]		= 19288,			-- Darkmoon Card: Blue Dragon
 }
@@ -81,13 +92,13 @@ local enchants = {
 }
 
 
-
 local ApplyPredefinedCooldowns = true
--- For those who are really sure about their cooldowns, you can hardcode them like below. (Feel free to add your entries)
+-- For those who are really sure about their cooldowns.
+-- Feel free to add your entries like below.
 local PredefinedCooldowns = {
 -- [spellid]  	= cooldown,
-	[37198]		= 45,				-- Tome of Fiery Redemption
-	[34473]		= 30,				-- Commendation of Kael'thas
+	[37198]		= 45,				-- Tome of Fiery Redemption  (I'm sure its 45 sec)
+	[34473]		= 30,				-- Commendation of Kael'thas (Trinket tooltip says its 30 sec)
 }
 
 local defaults = {
@@ -460,64 +471,56 @@ function Procodile:ScanForProcs()
 		
 			-- Thank you, wowwiki
 			local found, _, itemstring = string.find(itemlink, "^|c%x+|H(.+)|h%[.+%]")
-			local _, itemId, enchantId, jewelId1, jewelId2, jewelId3, jewelId4, suffixId, uniqueId = strsplit(":", itemstring)
-			local itemName, itemLink, itemRarity, itemLevel, itemMinLevel, itemType, itemSubType, itemStackCount, itemEquipLoc, itemTexture = GetItemInfo(itemlink)
 			
-			-- Item enchants
-			if tonumber(enchantId) ~= 0 then
-			
-				for spell_id,spell_enchantid in pairs(enchants) do
-					if spell_enchantid == tonumber(enchantId) then
-						
-						-- See if we are already tracking this item
-						local exists = false
-						for index, spell in pairs(db.tracked) do
-							if spell.id == spell_id then
-								exists = true
-								spell.found = true
-							end
-						end
-						
-						-- No, add it
-						if not exists then
-							self:AddSpell(spell_id, itemName, itemTexture)
-						end
-						
-						break
-					end
-				end
+			if itemstring then
+				local _, itemId, enchantId, jewelId1, jewelId2, jewelId3, jewelId4, suffixId, uniqueId = strsplit(":", itemstring)
+				local itemName, itemLink, itemRarity, itemLevel, itemMinLevel, itemType, itemSubType, itemStackCount, itemEquipLoc, itemTexture = GetItemInfo(itemlink)
 				
-			end
-
-			-- Item proc spells
-			for spell_id,value in pairs(items) do
-				local mutli_spell_items = {}
-				if type(value) == "table" then
-					mutli_spell_items = value
-				else
-					table.insert(mutli_spell_items, value)
+				-- Item enchants
+				if tonumber(enchantId) ~= 0 then
+				
+					for spell_id,spell_enchantid in pairs(enchants) do
+						if spell_enchantid == tonumber(enchantId) then
+							
+							-- See if we are already tracking this item
+							local exists = false
+							for index, spell in pairs(db.tracked) do
+								if spell.id == spell_id then
+									exists = true
+									spell.found = true
+								end
+							end
+							
+							-- No, add it
+							if not exists then
+								self:AddSpell(spell_id, itemName, itemTexture)
+							end
+							
+							break
+						end
+					end
+					
 				end
-			
-				for _,spell_itemid in pairs(mutli_spell_items) do
-					if spell_itemid == tonumber(itemId) then
-						-- See if we are already tracking this item
-						local exists = false
-						for index, spell in pairs(db.tracked) do
-							if spell.id == spell_id then
-								exists = true
-								spell.found = true
+
+				-- Item proc spells
+				for spell_id,value in pairs(items) do
+					if type(value) == "table" then
+						local tabletype = value['type']
+						
+						if tabletype == 'sharedproc' then
+							for key,spell_itemid in pairs(value) do
+								if key ~= 'type' then
+									self:RegisterProcItem(spell_itemid, itemId, spell_id, itemName, itemTexture)
+								end	
 							end
 						end
-						
-						-- No, add it
-						if not exists then
-							self:AddSpell(spell_id, itemName, itemTexture)
-						end
-						
-						break
-					end
+					else
+						local spell_itemid = value
+						self:RegisterProcItem(spell_itemid, itemId, spell_id, itemName, itemTexture)
+					end					
 				end
 			end
+			
 		end
 		
 	end
@@ -533,6 +536,25 @@ function Procodile:ScanForProcs()
 	self.Minimap:UpdateIcon()	
 	--self:ScheduleActionbarUpdate()
 	--ProcodileFu:OnUpdateFuBarText()
+end
+
+function Procodile:RegisterProcItem(spell_itemid, itemId, spell_id, itemName, itemTexture)
+	if spell_itemid == tonumber(itemId) then
+		-- See if we are already tracking this item
+		local exists = false
+		for index, spell in pairs(db.tracked) do
+			if spell.id == spell_id then
+				exists = true
+				spell.found = true
+			end
+		end
+		
+		-- No, add it
+		if not exists then
+			self:AddSpell(spell_id, itemName, itemTexture)
+		end
+		--	break
+	end
 end
 
 function Procodile:ShowCooldowns(show)
@@ -1048,7 +1070,6 @@ function Procodile:ScheduleActionSlotCheck(slot)
 end
 
 local ActionBarCooldownsNeedUpdate = false
-
 -- This method is dead code
 function Procodile:ScheduleActionbarUpdate()
 	ActionBarCooldownsNeedUpdate = true
