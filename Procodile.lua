@@ -15,12 +15,13 @@ local items = {
 	[21165]		= {['type'] = 'sharedproc', 28439,28438,28437},	-- Dragonstrike, Dragonmaw, Drakefist Hammer
 	[34513]		= {['type'] = 'sharedproc', 28430,28429,28428},	-- Lionheart Executioner, Lionheart Champion, Lionheart Blade
 	[36041]		= 29962,			-- Heartrazor
-	--[unkno]		= 29348,            -- Bladefist
-	[16916]		= 23541,			-- Khorium Champion
+	[36111]		= 30090,			-- World Breaker
+	[35131]		= 29348,            -- Bladefist
 	[38282]		= 31318,			-- Singing Crystal Axe
 	[38307]		= 31331,			-- The Night Blade
 	[38293]		= 31323,			-- Don Santos' Famous Hunting Rifle
 	[38317]		= 31336,			-- Blade of Wizardry
+	[16916]		= 23541,			-- Khorium Champion
 	
 -- RELICS
 	[43747]		= 33503,			-- Libram of Divine Judgement
@@ -31,7 +32,9 @@ local items = {
 -- ARMOR PIECES
 	[34585]		= 28578,			-- Masquerade Gown
 	[34597]		= 28602,			-- Robe of the Elder Scribes
-		
+	[32980] 	= 24123,			-- Circlet of Arcane Might
+	[24122] 	= 24123,			-- Coronet of Verdant Flame
+	
 -- RINGS
 	[35081]		= 29301, 			-- Band of the Eternal Champion
 	[35087]		= 29307,			-- Band of the Eternal Restorer
