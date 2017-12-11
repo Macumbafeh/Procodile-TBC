@@ -124,6 +124,24 @@ local enchants = {
 --	[11111]		= 2667,				-- FOR TESTING ONLY (Savagery)
 }
 
+local metas = {
+	[39959]		= {['itemid'] = 32410, ['jewelid'] = 3155},	-- Thundering Skyfire Diamond
+	[18803]		= {['itemid'] = 25893, ['jewelid'] = 2828}, 	-- Mystical Skyfire Diamond
+}
+
+--[[
+local enchants = {
+	[28093]		= {	['id'] = 2673,
+					['name'] = 'Mongoose' },
+	[27996]		= {	['id'] = 2674,
+					['name'] = 'Spellsurge' },
+	[20007]		= {	['id'] = 1900,
+					['name'] = 'Crusader' },
+	[42976]		= {	['id'] = 3225,
+					['name'] = 'Executioner' },
+}
+]]--
+
 
 local ApplyPredefinedCooldowns = true
 -- For those who are really sure about their cooldowns.
@@ -511,11 +529,46 @@ function Procodile:ScanForProcs()
 				
 				-- Item enchants
 				if tonumber(enchantId) ~= 0 then
-				
 					for spell_id,spell_enchantid in pairs(enchants) do
 						if spell_enchantid == tonumber(enchantId) then
-							
+							local enchantname = GetSpellInfo(spell_id)
 							-- See if we are already tracking this item
+							local exists = false
+							for index, spell in pairs(db.tracked) do
+								if spell.id == spell_id then
+									exists = true
+									spell.found = true
+									spell.icon = itemTexture
+									spell.info = itemName
+								end
+							end
+							
+							-- No, add it
+							if not exists then
+								self:AddSpell(spell_id, enchantname, itemTexture, nil, itemName)
+							end
+							
+							break
+						end
+					end
+				end
+				
+				-- Meta gems
+				if slotid == GetInventorySlotInfo("HeadSlot") then
+					for spell_id, meta in pairs(metas) do
+						local metafound = nil
+						local meta_id = meta['jewelid']
+						-- Uncomment the line below to find jewel ids
+						self:Print("Headslot jc ids: "..jewelId1.."|"..jewelId2.."|"..jewelId3.."|"..jewelId4 .. " Checking metaId: "..meta_id)
+						
+						if tostring(jewelId1) == tostring(meta_id) or tonumber(jewelId2) == meta_id or tonumber(jewelId3) == meta_id or tonumber(jewelId4) == meta_id then
+							metafound = meta['itemid']
+							self:Print("Meta found jewelId: "..meta_id.." itemid: "..metafound)
+						else
+							self:Print("Couldn't find matching meta for jewelid: "..meta_id)
+						end
+						
+						if metafound then
 							local exists = false
 							for index, spell in pairs(db.tracked) do
 								if spell.id == spell_id then
@@ -523,16 +576,12 @@ function Procodile:ScanForProcs()
 									spell.found = true
 								end
 							end
-							
-							-- No, add it
 							if not exists then
-								self:AddSpell(spell_id, itemName, itemTexture)
+								local metaName, metaLink, metaRarity, metaLevel, metaMinLevel, metaType, metaSubType, metaStackCount, metaEquipLoc, metaTexture = GetItemInfo(metafound)
+								self:AddSpell(spell_id, metaName, metaTexture)
 							end
-							
-							break
 						end
 					end
-					
 				end
 
 				-- Item proc spells
