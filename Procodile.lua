@@ -12,8 +12,8 @@ local items = {
 
 -- WEAPONS AND OFFHANDS
 	[40408]		= 32375,			-- Bulwark of Azzinoth
-	[21165]		= {['type'] = 'sharedproc', 28439,28438,28437},	-- Dragonstrike, Dragonmaw, Drakefist Hammer
-	[34513]		= {['type'] = 'sharedproc', 28430,28429,28428},	-- Lionheart Executioner, Lionheart Champion, Lionheart Blade
+	[21165]		= {['type'] = 'sharedproc', 28437,28438,28439},	-- Drakefist Hammer, Dragonmaw, Dragonstrike
+	[34513]		= {['type'] = 'sharedproc', 28428,28429,28430},	-- Lionheart Blade, Lionheart Champion, Lionheart Executioner
 	[36041]		= 29962,			-- Heartrazor
 	[36111]		= 30090,			-- World Breaker
 	[35131]		= 29348,            -- Bladefist
@@ -25,7 +25,8 @@ local items = {
 	
 -- RELICS
 	[43747]		= 33503,			-- Libram of Divine Judgement
-	[43749]		= 33507,			-- Stonebreaker's Tote
+	[43751]		= 33506,			-- Skycall Totem
+	[43749]		= 33507,			-- Stonebreaker's Totem
 	[43738]		= 33509,			-- Idol of Terror
 	[43740]		= 33510,			-- Idol of the Unseen Moon
 
@@ -109,7 +110,7 @@ local items = {
 	[45053]		= 34472,			-- Shard of Contempt
 	[34321]		= 28418,			-- Shiffar's Nexus-Horn
 	[38346]		= 28370,			-- Bangle of Endless Blessings
-	[33370] 	= {['type'] = 'sharedproc', 27683, 28190},	-- Quagmirran's Eye, Scarab of the Infinite Cycle
+	[33370] 	= {['type'] = 'sharedproc', 28190, 27683},	-- Scarab of the Infinite Cycle, Quagmirran's Eye
 	[33649]		= 28034,			-- Hourglass of the Unraveller
 	[23684]		= 19288,			-- Darkmoon Card: Blue Dragon
 }
@@ -620,7 +621,7 @@ function Procodile:ScanForProcs()
 	-- Remove spells not found (item removed from inventory)
 	for index, spell in pairs(db.tracked) do
 		if not spell.found then
-			self:RemoveSpell(spell.id)
+			self:RemoveSpell(spell.id, spell.name)
 		end
 	end
 	
@@ -637,7 +638,7 @@ function Procodile:RegisterProcItem(spell_itemid, itemId, spell_id, itemName, it
 		-- See if we are already tracking this item
 		local exists = false
 		for index, spell in pairs(db.tracked) do
-			if spell.id == spell_id then
+			if spell.id == spell_id and spell.name == itemName then
 				exists = true
 				spell.found = true
 			end
@@ -716,9 +717,9 @@ function Procodile:AddSpell(spellid, itemname, itemicon, iscustom, procInfo)
 	end
 end
 
-function Procodile:RemoveSpell(spellid)
+function Procodile:RemoveSpell(spellid, itemname)
 	for index, spell in pairs(db.tracked) do
-		if spell.id == spellid then
+		if spell.id == spellid and spell.name == itemname then
 			-- Add to dormant
 			table.insert(db.dormant, spell)
 			
