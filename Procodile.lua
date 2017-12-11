@@ -577,6 +577,8 @@ function Procodile:ScanForProcs()
 	self:UpdateActionbarCooldowns()
 	self.Minimap:UpdateIcon()	
 	--self:ScheduleActionbarUpdate()
+	
+	self.Minimap:RefreshTooltip()
 	--ProcodileFu:OnUpdateFuBarText()
 end
 
@@ -699,6 +701,7 @@ function Procodile:Reset()
 	self:Print("|cff22ff22".."Data for all tracked procs has been reset")
 	self:ScanForProcs()
 	--ProcodileFu:OnUpdateFuBarText()
+	self.Minimap:RefreshTooltip()
 end
 
 function Procodile:ReconfigureBars()
@@ -863,6 +866,7 @@ function Procodile:COMBAT_LOG_EVENT_UNFILTERED(event, timestamp, eventtype, srcG
 						end
 						
 						changed = true
+						self.Minimap:RefreshTooltip()
 					end
 				end
 
@@ -926,6 +930,7 @@ function Procodile:Toggle(enabled)
 	end
 	
 	--ProcodileFu:OnUpdateFuBarText()
+	self.Minimap:RefreshTooltip()
 end
 
 -- [[ Proc related cooldown frames and action slots ]] --

@@ -68,6 +68,8 @@ function MinimapButton:OnMouseUp()
 	self.icon:SetTexCoord(0, 1, 0, 1)
 end
 
+local showingToolTip = false
+
 function MinimapButton:OnEnter()
 	if not self.dragging then
 		GameTooltip:SetOwner(self, 'ANCHOR_BOTTOMLEFT')
@@ -132,11 +134,20 @@ function MinimapButton:OnEnter()
 		GameTooltip:AddLine(L["Right-click to configure"], 0, 1, 0)
 		
 		GameTooltip:Show()
+		showingToolTip = true
+	end
+end
+
+function MinimapButton:RefreshTooltip()
+	if showingToolTip then
+		self:OnLeave()
+		self:OnEnter()
 	end
 end
 
 function MinimapButton:OnLeave()
 	GameTooltip:Hide()
+	showingToolTip = false
 end
 
 function MinimapButton:OnDragStart()
@@ -145,6 +156,7 @@ function MinimapButton:OnDragStart()
 	self.icon:SetTexCoord(0.05, 0.95, 0.05, 0.95)
 	self:SetScript('OnUpdate', self.OnUpdate)
 	GameTooltip:Hide()
+	showingToolTip = false
 end
 
 function MinimapButton:OnDragStop()
