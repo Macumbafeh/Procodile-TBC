@@ -98,6 +98,9 @@ function MinimapButton:OnEnter()
 					
 			GameTooltip:AddLine(proc.name, 0.3, 0.3, 0.8)
 			GameTooltip:AddTexture(proc.icon)
+			if proc.info then
+				GameTooltip:AddDoubleLine(L["Info"], proc.info, nil, nil, nil, 1,1,1)
+			end
 			if proc.count > 0 then
 				GameTooltip:AddDoubleLine(L["Procs"], proc.count, nil, nil, nil, 1,1,1)
 			else

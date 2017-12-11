@@ -72,6 +72,7 @@ L["REMOVECUSTOM_DESC"] = "Select a custom spell to stop tracking it."
 
 --ProcodileFu.lua
 L["Procodile"] = true
+L["Info"] = true
 L["Procs"] = true
 L["PPM"] = true
 L["Uptime"] = true

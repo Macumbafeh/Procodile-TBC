@@ -39,14 +39,29 @@ local items = {
 	[35084]		= 29305, 			-- Band of the Eternal Sage
 	
 -- NECKLACES
-	[45478]		= 34677,			-- Shattered Sun Pendant of Restoration (Aldor)	
 --	[unkno]		= 34677,			-- Shattered Sun Pendant of Restoration (Scryers - Proc is 'Arcane Surge' healingeffect instead of a buff)	
-	[45479]		= 34678,			-- Shattered Sun Pendant of Acumen (Aldor)	
+	[45478]		= {	['type'] = 'conditional', 
+					['itemid'] = 34677, 	-- Shattered Sun Pendant of Restoration
+					['info'] = 'Aldor', 	-- Aldor exalted
+					['condition'] = function() return Procodile:IsAldorExalted() end, },
 --	[unkno]		= 34678,			-- Shattered Sun Pendant of Acumen (Scryers - Proc is 'Arcane Bolt' damageffect instead of a buff)
-	[45480]		= 34679,			-- Shattered Sun Pendant of Might (Aldor)	
---	[unkno]		= 34679,			-- Shattered Sun Pendant of Might  (Scryers - Proc is 'Arcane Strike' damageffect instead of a buff)	
-	[45432]		= 34680,			-- Shattered Sun Pendant of Reslove (Aldor)	
-	[45431]		= 34680,			-- Shattered Sun Pendant of Reslove (Scryers)	
+	[45479]		= {	['type'] = 'conditional', 
+					['itemid'] = 34678, 	-- Shattered Sun Pendant of Acumen
+					['info'] = 'Aldor', 	-- Aldor exalted
+					['condition'] = function() return Procodile:IsAldorExalted() end, },
+--	[unkno]		= 34679,			-- Shattered Sun Pendant of Might  (Scryers - Proc is 'Arcane Strike' damageffect instead of a buff)
+	[45480]		= {	['type'] = 'conditional', 
+					['itemid'] = 34679, 	-- Shattered Sun Pendant of Might
+					['info'] = 'Aldor', 	-- Aldor exalted
+					['condition'] = function() return Procodile:IsAldorExalted() end, },
+	[45432]		= {	['type'] = 'conditional', 
+					['itemid'] = 34680, 	-- Shattered Sun Pendant of Reslove
+					['info'] = 'Aldor', 	-- Aldor exalted
+					['condition'] = function() return Procodile:IsAldorExalted() end, },
+	[45431]		= {	['type'] = 'conditional', 
+					['itemid'] = 34680, 	-- Shattered Sun Pendant of Reslove
+					['info'] = 'Scryers', 	-- Scryers exalted
+					['condition'] = function() return Procodile:IsScryersExalted() end, },
 	
 -- TRINKETS	
 	-- Itemlevel 160 - 130
@@ -58,11 +73,26 @@ local items = {
 	[40480]		= 32493,			-- Ashtongue Talisman of Shadows
 
 	-- Itemlevel 130 - 100
-	[37340]		= 30664,			-- Living Root of the Wildheart (Bear form		- Ursine Blessing (+4k armor))
-	[37341]		= 30664,			-- Living Root of the Wildheart (Cat form 		- Feline Blessing (+64 str))
-	[37342]		= 30664,			-- Living Root of the Wildheart (Tree form	 	- Sylvan Blessing (+324 healing))
-	[37343]		= 30664,			-- Living Root of the Wildheart (Moonking form 	- Lunar Blessing  (+140 sp))
-	[37344]		= 30664,			-- Living Root of the Wildheart (No form 		- Cenarion Blessing (+175 sp))
+	[37340]		= {	['type'] = 'conditional', 
+					['itemid'] = 30664, 	-- Living Root of the Wildheart
+					['info'] = 'Bear form', -- Ursine Blessing (+4k armor))
+					['condition'] = function() return Procodile:IsDruidInBearForm() end, },
+	[37341]		= {	['type'] = 'conditional', 
+					['itemid'] = 30664, 	-- Living Root of the Wildheart
+					['info'] = 'Cat form', 	-- Feline Blessing (+64 str))
+					['condition'] = function() return Procodile:IsDruidInCatForm() end, },
+	[37342]		= {	['type'] = 'conditional', 
+					['itemid'] = 30664, 	-- Living Root of the Wildheart
+					['info'] = 'Tree form', -- Sylvan Blessing (+324 healing)
+					['condition'] = function() return Procodile:IsDruidInTreeForm() end, },
+	[37343]		= {	['type'] = 'conditional', 
+					['itemid'] = 30664, 	-- Living Root of the Wildheart
+					['info'] = 'Moonkin form', 	-- Lunar Blessing  (+140 sp))
+					['condition'] = function() return Procodile:IsDruidInMoonkinForm() end, },  			
+	[37344]		= {	['type'] = 'conditional', 
+					['itemid'] = 30664, 	-- Living Root of the Wildheart
+					['info'] = "No form", 	-- Cenarion Blessing (+175 sp)
+					['condition'] = function() return Procodile:IsDruidOutOfForm() end, },  
 	[38348]		= 30626,			-- Sextant of Unstable Currents
 	[37198]		= 30447,			-- Tome of Fiery Redemption
 	[42084]		= 30627,			-- Tsunami Talisman
@@ -420,7 +450,7 @@ function Procodile:OnEnable()
 	self:RegisterEvent("COMBAT_LOG_EVENT_UNFILTERED")
 	self:RegisterEvent("UNIT_INVENTORY_CHANGED")
 	self:RegisterEvent("ACTIONBAR_SLOT_CHANGED")
-	
+	self:RegisterEvent("UPDATE_SHAPESHIFT_FORM")
 	changed = true
 	
 	-- Clean up tracked spells
@@ -513,6 +543,18 @@ function Procodile:ScanForProcs()
 									self:RegisterProcItem(spell_itemid, itemId, spell_id, itemName, itemTexture)
 								end	
 							end
+						elseif tabletype == 'conditional' then
+							local spell_itemid = value["itemid"]
+							local procInfo = value['info']
+							local condition = value['condition']
+							if condition then
+								if spell_itemid == tonumber(itemId) and condition() then
+									self:RegisterProcItem(spell_itemid, itemId, spell_id, itemName, itemTexture, procInfo)
+									if db.verbose then
+										--self:Print("Condition "..procInfo)
+									end
+								end
+							end
 						end
 					else
 						local spell_itemid = value
@@ -538,7 +580,7 @@ function Procodile:ScanForProcs()
 	--ProcodileFu:OnUpdateFuBarText()
 end
 
-function Procodile:RegisterProcItem(spell_itemid, itemId, spell_id, itemName, itemTexture)
+function Procodile:RegisterProcItem(spell_itemid, itemId, spell_id, itemName, itemTexture, procInfo)
 	if spell_itemid == tonumber(itemId) then
 		-- See if we are already tracking this item
 		local exists = false
@@ -551,7 +593,7 @@ function Procodile:RegisterProcItem(spell_itemid, itemId, spell_id, itemName, it
 		
 		-- No, add it
 		if not exists then
-			self:AddSpell(spell_id, itemName, itemTexture)
+			self:AddSpell(spell_id, itemName, itemTexture, nil, procInfo)
 		end
 		--	break
 	end
@@ -571,7 +613,7 @@ function Procodile:GetTrackedSpells()
 end
 
 -- Adds a spell to the tracked spells
-function Procodile:AddSpell(spellid, itemname, itemicon, iscustom)
+function Procodile:AddSpell(spellid, itemname, itemicon, iscustom, procInfo)
 	-- Attempt to find the spell in dormant
 	local found = false
 	for index, spell in pairs(db.dormant) do
@@ -609,7 +651,11 @@ function Procodile:AddSpell(spellid, itemname, itemicon, iscustom)
 					laststarted = 0,
 					found = true,
 					custom = iscustom,
+					--info = procInfo,
 				}
+		if procInfo then
+			spell.info = procInfo
+		end
 		table.insert(db.tracked, spell)
 	end
 	
@@ -649,9 +695,9 @@ function Procodile:Reset()
 	end
 	
 	db.dormant = {}
-	
+	db.tracked = {}
 	self:Print("|cff22ff22".."Data for all tracked procs has been reset")
-	
+	self:ScanForProcs()
 	--ProcodileFu:OnUpdateFuBarText()
 end
 
@@ -1136,4 +1182,104 @@ end
 
 function Procodile:GetMinimapButtonPosition()
 	return db.minimapPos
+end
+
+-- [[ Conditional proc helpers ]] --
+
+local previousForm = -1
+local wasInForm = false
+function Procodile:UPDATE_SHAPESHIFT_FORM()
+	local form = GetShapeshiftForm()
+	if form ~= previousForm and form ~= 0 then
+		wasInForm = true
+		self:OnShapeshift(form)
+	elseif form == 0 and previousForm == 0 and wasInForm then
+		wasInForm = false
+		self:OnShapeshift(form)
+	end
+	previousForm = form
+end
+
+function Procodile:OnShapeshift(form)
+	local class, classFileName, classIndex = UnitClass("player")
+	if classFileName == "DRUID" then
+		--self:Print("Shapeshift change, form: "..form)
+		if self:IsDruidWearingFunkyTrinket() then
+			self:ScanForProcs()
+		end 
+	end 
+end
+
+function Procodile:IsDruidWearingFunkyTrinket() 
+	local trinketId = 30664
+	for slotid = 1, 20 do
+		local itemlink = GetInventoryItemLink("player", slotid)
+		if itemlink ~= nil then
+			-- Thank you, wowwiki
+			local found, _, itemstring = string.find(itemlink, "^|c%x+|H(.+)|h%[.+%]")
+			if itemstring then
+				local _, itemId, enchantId, jewelId1, jewelId2, jewelId3, jewelId4, suffixId, uniqueId = strsplit(":", itemstring)
+				--local itemName, itemLink, itemRarity, itemLevel, itemMinLevel, itemType, itemSubType, itemStackCount, itemEquipLoc, itemTexture = GetItemInfo(itemlink)
+				--self:Print("No match, itemId:".. itemId.." trinketId:"..trinketId)
+				if tonumber(itemId) == trinketId then
+					return true
+				end
+			end
+		end
+	end
+	return false
+end
+
+function Procodile:IsDruidOutOfForm()
+	return GetShapeshiftForm() == 0
+end
+
+function Procodile:IsDruidInBearForm()
+	return GetShapeshiftForm() == 1
+end
+
+function Procodile:IsDruidInCatForm()
+	local CatFormSpellId = 768
+	return IsFormActive(3, CatFormSpellId) or IsFormActive(4, CatFormSpellId)
+end
+
+function Procodile:IsDruidInTreeForm()
+	local TreeFormSpellId = 33891
+	return IsFormActive(5, TreeFormSpellId) or IsFormActive(6, TreeFormSpellId)
+end
+
+function Procodile:IsDruidInMoonkinForm()
+	local MoonkinFormSpellId = 24858
+	return IsFormActive(5, MoonkinFormSpellId) or IsFormActive(6, MoonkinFormSpellId)
+end
+
+function IsFormActive(index, formSpellId)
+	local formName = GetSpellInfo(formSpellId)
+	local texture, name, isActive, isCastable, spellID = GetShapeshiftFormInfo(index)
+	return GetShapeshiftForm() == index and name == formName
+end
+
+function Procodile:IsAldorExalted()
+	return IsPlayerExalted("The Aldor")
+end
+
+function Procodile:IsScryersExalted()
+	return IsPlayerExalted("The Scryers")
+end
+
+function IsPlayerExalted(factionName)
+	local name, standingID = GetFactionStandingByID(factionName)
+	--Procodile:Print(name.." standing: "..standingID)
+	return tonumber(standingID)	== 8
+end
+
+function GetFactionStandingByID(factionName)
+	for index = 1, 60 do
+		local name, description, standingID = GetFactionInfo(index)
+		--Procodile:Print(GetFactionInfo(index))
+		if name == factionName then
+			return name, standingID
+		end
+	end
+	return 0
 end
