@@ -559,13 +559,11 @@ function Procodile:ScanForProcs()
 						local metafound = nil
 						local meta_id = meta['jewelid']
 						-- Uncomment the line below to find jewel ids
-						self:Print("Headslot jc ids: "..jewelId1.."|"..jewelId2.."|"..jewelId3.."|"..jewelId4 .. " Checking metaId: "..meta_id)
+						--self:Print("Headslot jc ids: "..jewelId1.."|"..jewelId2.."|"..jewelId3.."|"..jewelId4 .. " Checking metaId: "..meta_id)
 						
 						if tostring(jewelId1) == tostring(meta_id) or tonumber(jewelId2) == meta_id or tonumber(jewelId3) == meta_id or tonumber(jewelId4) == meta_id then
 							metafound = meta['itemid']
-							self:Print("Meta found jewelId: "..meta_id.." itemid: "..metafound)
-						else
-							self:Print("Couldn't find matching meta for jewelid: "..meta_id)
+							--self:Print("Meta found jewelId: "..meta_id.." itemid: "..metafound)
 						end
 						
 						if metafound then
