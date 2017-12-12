@@ -1096,8 +1096,11 @@ end
 
 function Procodile:GetActionSlotsForProc(proc) 
 	local bongos = IsAddOnLoaded("Bongos")
+	local bartender = IsAddOnLoaded("Bartender4")
 	if bongos then
 		return self:GetBongosSlotsForProc(proc)
+	elseif bartender then
+		return self:GetBarTenderSlotsForProc(proc)
 	else
 		return self:GetDefaultActionBarSlotsForProc(proc)
 	end
@@ -1127,6 +1130,23 @@ function Procodile:GetBongosSlotsForProc(proc)
 	
 	for i = 1, 120 do
 		local buttonName = format('Bongos3ActionButton%d', i)
+		local button = _G[buttonName]
+
+		if button then
+			local slot = button:GetAttribute('action') or 0
+			self:SelectProcActionSlots(proc, button, buttons, slot, slots)
+		end 
+    end
+	
+	return buttons, slots
+end
+
+function Procodile:GetBarTenderSlotsForProc(proc)
+	local buttons = {}
+	local slots = {}
+	
+	for i = 1, 120 do
+		local buttonName = format('BT4Button%dSecure', i)
 		local button = _G[buttonName]
 
 		if button then
@@ -1197,7 +1217,6 @@ end
 function ClearTable(mytable)
 	for k in next, mytable do rawset(mytable, k, nil) end
 end
-
 
 local ProcsNeedRescan = false 
 
