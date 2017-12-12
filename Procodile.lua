@@ -484,6 +484,7 @@ function Procodile:OnEnable()
 	self:RegisterEvent("COMBAT_LOG_EVENT_UNFILTERED")
 	self:RegisterEvent("UNIT_INVENTORY_CHANGED")
 	self:RegisterEvent("ACTIONBAR_SLOT_CHANGED")
+	self:RegisterEvent("ACTIONBAR_PAGE_CHANGED")
 	self:RegisterEvent("UPDATE_SHAPESHIFT_FORM")
 	changed = true
 	
@@ -887,6 +888,10 @@ function Procodile:ACTIONBAR_SLOT_CHANGED(event, slot)
 	self:CheckActionSlots()
 end
 
+function Procodile:ACTIONBAR_PAGE_CHANGED()
+	self:UpdateActionbarCooldowns()
+end
+
 function Procodile:COMBAT_LOG_EVENT_UNFILTERED(event, timestamp, eventtype, srcGUID, srcName, srcFlags, dstGUID, dstName, dstFlags, ...)
 	local obj = select(1, ...)
 	local match = false
@@ -1107,21 +1112,25 @@ end
 -- [[ ActionButton and ActionSlot search for procs ]] --
 
 function Procodile:GetActionSlotsForProc(proc) 
-	local bongos = IsAddOnLoaded("Bongos")
+	local buttons = {}
+	local slots = {}
+	local bongos = IsAddOnLoaded("Bongos_AB")
 	local bartender = IsAddOnLoaded("Bartender4")
 	if bongos then
-		return self:GetActionButtonSlotsForProc('Bongos3ActionButton%d',proc)
-	elseif bartender then
-		return self:GetActionButtonSlotsForProc('BT4Button%dSecure',proc)
-	else
-		return self:GetDefaultActionBarSlotsForProc(proc)
+		self:LoadActionButtonSlotsForProc(buttons,slots,proc,'Bongos3ActionButton%d')
 	end
+	if bartender then
+		self:LoadActionButtonSlotsForProc(buttons,slots,proc,'BT4Button%dSecure')
+	end
+	if not bongos then 
+		-- Bongos surely disables Vanilla actionbars, so need to check for them
+		self:LoadDefaultActionBarSlotsForProc(buttons,slots,proc)
+	end
+	return buttons, slots
 end
 
 local ActionBars = {'Action','MultiBarBottomLeft','MultiBarBottomRight','MultiBarRight','MultiBarLeft'}
-function Procodile:GetDefaultActionBarSlotsForProc(proc)
-	local buttons = {}
-	local slots = {}
+function Procodile:LoadDefaultActionBarSlotsForProc(buttons,slots,proc)
 	for _, barName in pairs(ActionBars) do
         for i = 1, 14 do
             local button = _G[barName .. 'Button' .. i]
@@ -1132,14 +1141,9 @@ function Procodile:GetDefaultActionBarSlotsForProc(proc)
 			end             
         end
     end
-	
-	return buttons, slots
 end
 
-function Procodile:GetActionButtonSlotsForProc(actionButtonId,proc)
-	local buttons = {}
-	local slots = {}
-	
+function Procodile:LoadActionButtonSlotsForProc(buttons,slots,proc,actionButtonId)
 	for i = 1, 120 do
 		local buttonName = format(actionButtonId, i)
 		local button = _G[buttonName]
@@ -1149,8 +1153,6 @@ function Procodile:GetActionButtonSlotsForProc(actionButtonId,proc)
 			self:SelectProcActionSlots(proc, button, buttons, slot, slots)
 		end 
     end
-	
-	return buttons, slots
 end
 
 function Procodile:SelectProcActionSlots(proc, button, buttons, slot, slots)
