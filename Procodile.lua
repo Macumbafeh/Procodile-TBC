@@ -156,6 +156,7 @@ local PredefinedCooldowns = {
 local defaults = {
         char = {
 				showMinimap = true,
+				autoHide = false,
 				minimapPos = 225,
                 combat = true,
                 showspells = false,
@@ -413,6 +414,17 @@ Procodile.options = {
 										Procodile:UpdateMinimapButton()
 									end,
 							},
+							autoHide = {
+							        type="toggle",
+							        name=L["AUTOHIDE_NAME"],
+							        desc=L["AUTOHIDE_DESC"],
+							        order=5,
+							        get=function() return db.autoHide end,
+							        set=function() 
+										db.autoHide = not db.autoHide 
+										Procodile:UpdateMinimapButton()
+									end,
+							},
 							actionbarscds = {
 							        type="toggle",
 							        name=L["ACTIONBARCDS_NAME"],
@@ -626,11 +638,11 @@ function Procodile:ScanForProcs()
 	end
 	
 	self:UpdateActionbarCooldowns()
+	self:UpdateMinimapButton()
 	self.Minimap:UpdateIcon()	
 	--self:ScheduleActionbarUpdate()
 	
 	self.Minimap:RefreshTooltip()
-	--ProcodileFu:OnUpdateFuBarText()
 end
 
 function Procodile:RegisterProcItem(spell_itemid, itemId, spell_id, itemName, itemTexture, procInfo)
@@ -1098,9 +1110,9 @@ function Procodile:GetActionSlotsForProc(proc)
 	local bongos = IsAddOnLoaded("Bongos")
 	local bartender = IsAddOnLoaded("Bartender4")
 	if bongos then
-		return self:GetBongosSlotsForProc(proc)
+		return self:GetActionButtonSlotsForProc('Bongos3ActionButton%d',proc)
 	elseif bartender then
-		return self:GetBarTenderSlotsForProc(proc)
+		return self:GetActionButtonSlotsForProc('BT4Button%dSecure',proc)
 	else
 		return self:GetDefaultActionBarSlotsForProc(proc)
 	end
@@ -1124,29 +1136,12 @@ function Procodile:GetDefaultActionBarSlotsForProc(proc)
 	return buttons, slots
 end
 
-function Procodile:GetBongosSlotsForProc(proc)
+function Procodile:GetActionButtonSlotsForProc(actionButtonId,proc)
 	local buttons = {}
 	local slots = {}
 	
 	for i = 1, 120 do
-		local buttonName = format('Bongos3ActionButton%d', i)
-		local button = _G[buttonName]
-
-		if button then
-			local slot = button:GetAttribute('action') or 0
-			self:SelectProcActionSlots(proc, button, buttons, slot, slots)
-		end 
-    end
-	
-	return buttons, slots
-end
-
-function Procodile:GetBarTenderSlotsForProc(proc)
-	local buttons = {}
-	local slots = {}
-	
-	for i = 1, 120 do
-		local buttonName = format('BT4Button%dSecure', i)
+		local buttonName = format(actionButtonId, i)
 		local button = _G[buttonName]
 
 		if button then
@@ -1239,7 +1234,15 @@ function Procodile:SetShowMinimap(enable)
 end
 
 function Procodile:ShowingMinimap()
-	return db.showMinimap
+	local autoHideAllows = true
+	if db.autoHide then
+		local procs = 0
+		for _ in pairs(db.tracked) do procs = procs + 1 end
+		if procs == 0 then
+			autoHideAllows = false
+		end 
+	end
+	return autoHideAllows and db.showMinimap
 end
 
 function Procodile:UpdateMinimapButton()
@@ -1343,12 +1346,12 @@ function Procodile:IsScryersExalted()
 end
 
 function IsPlayerExalted(factionName)
-	local name, standingID = GetFactionStandingByID(factionName)
+	local name, standingID = GetFactionStandingByName(factionName)
 	--Procodile:Print(name.." standing: "..standingID)
 	return tonumber(standingID)	== 8
 end
 
-function GetFactionStandingByID(factionName)
+function GetFactionStandingByName(factionName)
 	for index = 1, 60 do
 		local name, description, standingID = GetFactionInfo(index)
 		--Procodile:Print(GetFactionInfo(index))

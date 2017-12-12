@@ -28,6 +28,9 @@ L["VERBOSE_DESC"] = "Shows in chat when tracking is enabled or disabled, and whe
 L["SHOWMINIMAP_NAME"] = "Minimap icon"
 L["SHOWMINIMAP_DESC"] = "Shows the icon of the addon next to your minimap."
 
+L["AUTOHIDE_NAME"] = "Autohide"
+L["AUTOHIDE_DESC"] = "Automatically hides the minimap icon when there no procs currently tracked."
+
 L["ACTIONBARCDS_NAME"] = "Actionbar cooldowns"
 L["ACTIONBARCDS_DESC"] = "Shows the proc cooldowns of your currently used items on their actionbar slots."
 
