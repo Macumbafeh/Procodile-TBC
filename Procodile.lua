@@ -22,7 +22,7 @@ local items = {
 	[38293]		= 31323,			-- Don Santos' Famous Hunting Rifle
 	[38317]		= 31336,			-- Blade of Wizardry
 	[16916]		= 23541,			-- Khorium Champion
-	
+
 -- RELICS
 	[43747]		= 33503,			-- Libram of Divine Judgement
 	[43751]		= 33506,			-- Skycall Totem
@@ -35,39 +35,39 @@ local items = {
 	[34597]		= 28602,			-- Robe of the Elder Scribes
 	[32980] 	= 24123,			-- Circlet of Arcane Might
 	[24122] 	= 24123,			-- Coronet of Verdant Flame
-	
+
 -- RINGS
 	[35081]		= 29301, 			-- Band of the Eternal Champion
 	[35087]		= 29307,			-- Band of the Eternal Restorer
 	[35078]		= 29297,			-- Band of the Eternal Defender
 	[35084]		= 29305, 			-- Band of the Eternal Sage
-	
+
 -- NECKLACES
---	[unkno]		= 34677,			-- Shattered Sun Pendant of Restoration (Scryers - Proc is 'Arcane Surge' healingeffect instead of a buff)	
-	[45478]		= {	['type'] = 'conditional', 
+--	[unkno]		= 34677,			-- Shattered Sun Pendant of Restoration (Scryers - Proc is 'Arcane Surge' healingeffect instead of a buff)
+	[45478]		= {	['type'] = 'conditional',
 					['itemid'] = 34677, 	-- Shattered Sun Pendant of Restoration
 					['info'] = 'Aldor', 	-- Aldor exalted
 					['condition'] = function() return Procodile:IsAldorExalted() end, },
 --	[unkno]		= 34678,			-- Shattered Sun Pendant of Acumen (Scryers - Proc is 'Arcane Bolt' damageffect instead of a buff)
-	[45479]		= {	['type'] = 'conditional', 
+	[45479]		= {	['type'] = 'conditional',
 					['itemid'] = 34678, 	-- Shattered Sun Pendant of Acumen
 					['info'] = 'Aldor', 	-- Aldor exalted
 					['condition'] = function() return Procodile:IsAldorExalted() end, },
 --	[unkno]		= 34679,			-- Shattered Sun Pendant of Might  (Scryers - Proc is 'Arcane Strike' damageffect instead of a buff)
-	[45480]		= {	['type'] = 'conditional', 
+	[45480]		= {	['type'] = 'conditional',
 					['itemid'] = 34679, 	-- Shattered Sun Pendant of Might
 					['info'] = 'Aldor', 	-- Aldor exalted
 					['condition'] = function() return Procodile:IsAldorExalted() end, },
-	[45432]		= {	['type'] = 'conditional', 
+	[45432]		= {	['type'] = 'conditional',
 					['itemid'] = 34680, 	-- Shattered Sun Pendant of Reslove
 					['info'] = 'Aldor', 	-- Aldor exalted
 					['condition'] = function() return Procodile:IsAldorExalted() end, },
-	[45431]		= {	['type'] = 'conditional', 
+	[45431]		= {	['type'] = 'conditional',
 					['itemid'] = 34680, 	-- Shattered Sun Pendant of Reslove
 					['info'] = 'Scryers', 	-- Scryers exalted
 					['condition'] = function() return Procodile:IsScryersExalted() end, },
-	
--- TRINKETS	
+
+-- TRINKETS
 	-- Itemlevel 160 - 130
 	[45040]		= 34427,			-- Blackened Naaru Sliver
 	[37656]		= 32496,			-- Memento of Tyrande
@@ -77,26 +77,26 @@ local items = {
 	[40480]		= 32493,			-- Ashtongue Talisman of Shadows
 
 	-- Itemlevel 130 - 100
-	[37340]		= {	['type'] = 'conditional', 
+	[37340]		= {	['type'] = 'conditional',
 					['itemid'] = 30664, 	-- Living Root of the Wildheart
 					['info'] = 'Bear form', -- Ursine Blessing (+4k armor))
 					['condition'] = function() return Procodile:IsDruidInBearForm() end, },
-	[37341]		= {	['type'] = 'conditional', 
+	[37341]		= {	['type'] = 'conditional',
 					['itemid'] = 30664, 	-- Living Root of the Wildheart
 					['info'] = 'Cat form', 	-- Feline Blessing (+64 str))
 					['condition'] = function() return Procodile:IsDruidInCatForm() end, },
-	[37342]		= {	['type'] = 'conditional', 
+	[37342]		= {	['type'] = 'conditional',
 					['itemid'] = 30664, 	-- Living Root of the Wildheart
 					['info'] = 'Tree form', -- Sylvan Blessing (+324 healing)
 					['condition'] = function() return Procodile:IsDruidInTreeForm() end, },
-	[37343]		= {	['type'] = 'conditional', 
+	[37343]		= {	['type'] = 'conditional',
 					['itemid'] = 30664, 	-- Living Root of the Wildheart
 					['info'] = 'Moonkin form', 	-- Lunar Blessing  (+140 sp))
-					['condition'] = function() return Procodile:IsDruidInMoonkinForm() end, },  			
-	[37344]		= {	['type'] = 'conditional', 
+					['condition'] = function() return Procodile:IsDruidInMoonkinForm() end, },
+	[37344]		= {	['type'] = 'conditional',
 					['itemid'] = 30664, 	-- Living Root of the Wildheart
 					['info'] = "No form", 	-- Cenarion Blessing (+175 sp)
-					['condition'] = function() return Procodile:IsDruidOutOfForm() end, },  
+					['condition'] = function() return Procodile:IsDruidOutOfForm() end, },
 	[38348]		= 30626,			-- Sextant of Unstable Currents
 	[37198]		= 30447,			-- Tome of Fiery Redemption
 	[42084]		= 30627,			-- Tsunami Talisman
@@ -104,7 +104,7 @@ local items = {
 	[34775]		= 28830,			-- Dragonspine Trophy
 	[37706]		= 28823,			-- Eye of Gruul
 	[34747]		= 28789,			-- Eye of Magtheridon
-	
+
 	-- Itemlevel 120 - 100
 	[45058]		= 34473,			-- Commendation of Kael'thas
 	[45053]		= 34472,			-- Shard of Contempt
@@ -168,6 +168,7 @@ local defaults = {
                 barfontsize=7,
                 barwidth=130,
                 barheight=9,
+				barflash=5,
                 barfont=nil,
                 bartexture="Aluminium",
                 sinkOptions = {
@@ -209,7 +210,7 @@ Procodile.options = {
                                         desc=L["COOLDOWNS_DESC"],
                                         order=1,
                                         get=function() return db.cooldowns end,
-                                        set=function() 
+                                        set=function()
                                         		db.cooldowns = not db.cooldowns
                                         		if db.cooldowns then
                                         			Procodile:ShowCooldowns(true)
@@ -224,7 +225,7 @@ Procodile.options = {
                                         desc=L["MOVABLECOOLDOWNS_DESC"],
                                         order=2,
                                         get=function() return db.movablecooldowns end,
-                                        set=function() 
+                                        set=function()
                                         		db.movablecooldowns = not db.movablecooldowns
                                         		Procodile:SetMovableCooldowns(db.movablecooldowns)
                                         	end,
@@ -254,7 +255,7 @@ Procodile.options = {
                         					db.bartexture = media:List('statusbar')[v]
                         					Procodile:ReconfigureBars()
 										end,
-                        		}, 
+                        		},
                         		barfont = {
                         			type="select",
                         			name=L["BARFONT_NAME"],
@@ -272,7 +273,7 @@ Procodile.options = {
                         					db.barfont = media:List('font')[v]
                         					Procodile:ReconfigureBars()
 										end,
-                        		},                        		
+                        		},
                         		fontsize = {
                         			type="range",
                         			name=L["FONTSIZE_NAME"],
@@ -315,6 +316,19 @@ Procodile.options = {
 											Procodile:ReconfigureBars()
                         				end,
                         		},
+								barflash = {
+                        			type="range",
+                        			name=L["BARFLASH_NAME"],
+                        			desc=L["BARFLASH_DESC"],
+                        			min=0,
+                        			max=10,
+                        			step=1,
+                        			order=12,
+                        			get=function() return db.barflash end,
+                        			set=function(key, time)
+                        					db.barflash = time
+                        				end,
+                        		},
                         		bartest = {
                         			type="execute",
                         			order=-1,
@@ -338,7 +352,7 @@ Procodile.options = {
         					name=L["NEWCUSTOM_NAME"],
         					desc=L["NEWCUSTOM_DESC"],
         					order=1,
-        					set=function(info, val) 
+        					set=function(info, val)
 									local name, rank, icon, cost, isFunnel, powerType, castTime, minRange, maxRange = GetSpellInfo(val)
 	        						if name then
 	        							Procodile:AddSpell(tonumber(val), name, icon, true)
@@ -368,7 +382,7 @@ Procodile.options = {
        								end
         						end,
         				}
-        			}	
+        			}
         		},
                 options = {
                        type="group",
@@ -409,8 +423,8 @@ Procodile.options = {
 							        desc=L["SHOWMINIMAP_DESC"],
 							        order=4,
 							        get=function() return db.showMinimap end,
-							        set=function() 
-										db.showMinimap = not db.showMinimap 
+							        set=function()
+										db.showMinimap = not db.showMinimap
 										Procodile:UpdateMinimapButton()
 									end,
 							},
@@ -420,8 +434,8 @@ Procodile.options = {
 							        desc=L["AUTOHIDE_DESC"],
 							        order=5,
 							        get=function() return db.autoHide end,
-							        set=function() 
-										db.autoHide = not db.autoHide 
+							        set=function()
+										db.autoHide = not db.autoHide
 										Procodile:UpdateMinimapButton()
 									end,
 							},
@@ -431,14 +445,14 @@ Procodile.options = {
 							        desc=L["ACTIONBARCDS_DESC"],
 							        order=5,
 							        get=function() return db.actionbarscds end,
-							        set=function() 
+							        set=function()
 										db.actionbarscds = not db.actionbarscds
 										Procodile:UpdateActionbarCooldowns()
 									end,
 							},
                        }
                 },
-                                
+
         },
 }
 
@@ -447,20 +461,20 @@ function Procodile:OnInitialize()
 	self:RegisterChatCommand("proc", "Command")
 	self:RegisterChatCommand("proctest", "test")
 	self:RegisterChatCommand("procscan", "ScanForProcs")
-	
+
 	self.db = LibStub("AceDB-3.0"):New("ProcodileDB", defaults)
 	db = self.db.char
-	
+
 	self.options.args.output = Procodile:GetSinkAce3OptionsDataTable()
 	self.options.args.output.disabled = false
 	self:SetSinkStorage(db.sinkOptions)
-	
+
 	LibStub("AceConfig-3.0"):RegisterOptionsTable("Procodile", self.options)
 	self.optionsFrame = LibStub("AceConfigDialog-3.0"):AddToBlizOptions("Procodile", "Procodile")
 
 	self:SetupBars()
 	self:UpdateActionbarCooldowns()
-	
+
 	self.Minimap:Load()
 	self:UpdateMinimapButton()
 end
@@ -487,25 +501,25 @@ function Procodile:OnEnable()
 	self:RegisterEvent("ACTIONBAR_PAGE_CHANGED")
 	self:RegisterEvent("UPDATE_SHAPESHIFT_FORM")
 	changed = true
-	
+
 	-- Clean up tracked spells
 	for internalname,proc in pairs(db.tracked) do
 		proc.laststarted = 0
 		proc.started = 0
 	end
-	
+
 	-- Check for item procs
 	self:ScanForProcs()
-	
+
 	-- Should we enable tracking straight away?
 	if db.combat and InCombatLockdown() == nil then
 		self:Toggle(false)
 	else
 		self:Toggle(true)
 	end
-	
+
 	self:ScheduleRepeatingTimer("Tick", 1, nil)
-	
+
 end
 
 function Procodile:OnDisable()
@@ -515,14 +529,14 @@ function Procodile:OnDisable()
 end
 
 function Procodile:ScanForProcs()
-	
+
 	self:RemoveAllProcCooldownFrames()
 
 	-- Mark all tracked spells as not found after this inventory change
 	for index, spell in ipairs(db.tracked) do
 		spell.found = false
-		
-		-- Custom spells should never be automatically removed 
+
+		-- Custom spells should never be automatically removed
 		if spell.custom ~= nil then
 			spell.found = true
 		end
@@ -530,17 +544,17 @@ function Procodile:ScanForProcs()
 
 	-- For each inventory slot (ugly, should refer by IDs given by GetInventorySlotInfo()).
 	for slotid = 1, 20 do
-	
+
 		local itemlink = GetInventoryItemLink("player", slotid)
 		if itemlink ~= nil then
-		
+
 			-- Thank you, wowwiki
 			local found, _, itemstring = string.find(itemlink, "^|c%x+|H(.+)|h%[.+%]")
-			
+
 			if itemstring then
 				local _, itemId, enchantId, jewelId1, jewelId2, jewelId3, jewelId4, suffixId, uniqueId = strsplit(":", itemstring)
 				local itemName, itemLink, itemRarity, itemLevel, itemMinLevel, itemType, itemSubType, itemStackCount, itemEquipLoc, itemTexture = GetItemInfo(itemlink)
-				
+
 				-- Item enchants
 				if tonumber(enchantId) ~= 0 then
 					for spell_id,spell_enchantid in pairs(enchants) do
@@ -556,17 +570,17 @@ function Procodile:ScanForProcs()
 									spell.info = itemName
 								end
 							end
-							
+
 							-- No, add it
 							if not exists then
 								self:AddSpell(spell_id, enchantname, itemTexture, nil, itemName)
 							end
-							
+
 							break
 						end
 					end
 				end
-				
+
 				-- Meta gems
 				if slotid == GetInventorySlotInfo("HeadSlot") then
 					for spell_id, meta in pairs(metas) do
@@ -574,12 +588,12 @@ function Procodile:ScanForProcs()
 						local meta_id = meta['jewelid']
 						-- Uncomment the line below to find jewel ids
 						--self:Print("Headslot jc ids: "..jewelId1.."|"..jewelId2.."|"..jewelId3.."|"..jewelId4 .. " Checking metaId: "..meta_id)
-						
+
 						if tostring(jewelId1) == tostring(meta_id) or tonumber(jewelId2) == meta_id or tonumber(jewelId3) == meta_id or tonumber(jewelId4) == meta_id then
 							metafound = meta['itemid']
 							--self:Print("Meta found jewelId: "..meta_id.." itemid: "..metafound)
 						end
-						
+
 						if metafound then
 							local exists = false
 							for index, spell in pairs(db.tracked) do
@@ -600,12 +614,12 @@ function Procodile:ScanForProcs()
 				for spell_id,value in pairs(items) do
 					if type(value) == "table" then
 						local tabletype = value['type']
-						
+
 						if tabletype == 'sharedproc' then
 							for key,spell_itemid in pairs(value) do
 								if key ~= 'type' then
 									self:RegisterProcItem(spell_itemid, itemId, spell_id, itemName, itemTexture)
-								end	
+								end
 							end
 						elseif tabletype == 'conditional' then
 							local spell_itemid = value["itemid"]
@@ -623,26 +637,26 @@ function Procodile:ScanForProcs()
 					else
 						local spell_itemid = value
 						self:RegisterProcItem(spell_itemid, itemId, spell_id, itemName, itemTexture)
-					end					
+					end
 				end
 			end
-			
+
 		end
-		
+
 	end
-	
+
 	-- Remove spells not found (item removed from inventory)
 	for index, spell in pairs(db.tracked) do
 		if not spell.found then
 			self:RemoveSpell(spell.id, spell.name)
 		end
 	end
-	
+
 	self:UpdateActionbarCooldowns()
 	self:UpdateMinimapButton()
-	self.Minimap:UpdateIcon()	
+	self.Minimap:UpdateIcon()
 	--self:ScheduleActionbarUpdate()
-	
+
 	self.Minimap:RefreshTooltip()
 end
 
@@ -656,7 +670,7 @@ function Procodile:RegisterProcItem(spell_itemid, itemId, spell_id, itemName, it
 				spell.found = true
 			end
 		end
-		
+
 		-- No, add it
 		if not exists then
 			self:AddSpell(spell_id, itemName, itemTexture, nil, procInfo)
@@ -685,7 +699,7 @@ function Procodile:AddSpell(spellid, itemname, itemicon, iscustom, procInfo)
 	for index, spell in pairs(db.dormant) do
 		if spell.id == spellid then
 			found = true
-			
+
 			spell.started = 0
 			spell.laststarted = 0
 			spell.found = true
@@ -694,26 +708,26 @@ function Procodile:AddSpell(spellid, itemname, itemicon, iscustom, procInfo)
 			break
 		end
 	end
-	
+
 	if not found then
 		-- Spell not found in dormant - create new
-		
+
 		-- Loading the cooldown if we know it aleady
 		local spellcd = 0
 		local knowncd = PredefinedCooldowns[spellid]
 		if ApplyPredefinedCooldowns and knowncd then
 			spellcd = knowncd
 		end
-		
+
 		local spell = {
-					id = spellid, 
-					name = itemname, 
-					icon = itemicon, 
-					seconds = 0, 
-					count = 0, 
-					started = 0, 
-					totaltime = 0, 
-					cooldown = spellcd, 
+					id = spellid,
+					name = itemname,
+					icon = itemicon,
+					seconds = 0,
+					count = 0,
+					started = 0,
+					totaltime = 0,
+					cooldown = spellcd,
 					laststarted = 0,
 					found = true,
 					custom = iscustom,
@@ -724,7 +738,7 @@ function Procodile:AddSpell(spellid, itemname, itemicon, iscustom, procInfo)
 		end
 		table.insert(db.tracked, spell)
 	end
-	
+
 	if db.verbose then
 		self:Print("adding "..itemname)
 	end
@@ -735,12 +749,12 @@ function Procodile:RemoveSpell(spellid, itemname)
 		if spell.id == spellid and spell.name == itemname then
 			-- Add to dormant
 			table.insert(db.dormant, spell)
-			
+
 			-- Remove from tracked
 			table.remove(db.tracked, index)
-			
+
 			self.cooldowns:RemoveBar(spell.name)
-			
+
 			if db.verbose then
 				self:Print("removing "..spell.name)
 			end
@@ -759,7 +773,7 @@ function Procodile:Reset()
 		proc.laststarted = 0
 		proc.cooldown = 0
 	end
-	
+
 	db.dormant = {}
 	db.tracked = {}
 	self:Print("|cff22ff22".."Data for all tracked procs has been reset")
@@ -787,13 +801,13 @@ function Procodile:SetupBars()
 	self.cooldowns.RegisterCallback(self, "AnchorClicked")
 	self.cooldowns.RegisterCallback(self,"TimerFinished")
 	self.cooldowns:SetUserPlaced(true)
-	
+
 	if db.cooldowns then
 		self.cooldowns:Show()
 	else
 		self.cooldowns:Hide()
 	end
-	
+
 	if db.movablecooldowns then
 		self.cooldowns:ShowAnchor()
 	else
@@ -844,15 +858,19 @@ function Procodile:Tick()
 end
 
 function Procodile:TestBars()
-	local bar = self.cooldowns:NewTimerBar("Test bar", "Test bar", 10, 10, "Interface\\Icons\\Spell_Holy_WordFortitude")
+	local bar = Procodile:CreateBar("Test bar", "Test bar", 10, 10, "Interface\\Icons\\Spell_Holy_WordFortitude")
 	bar:SetHeight(db.barheight)
 	bar:SetTimer(10, 10)
+end
+
+function Procodile:CreateBar(name, text, time, maxTime, icon)
+	return self.cooldowns:NewTimerBar(name, text, time, maxTime, icon, db.barflash)
 end
 
 function Procodile:test()
 	for key,proc in pairs(db.tracked) do
 		self:Print("key="..key)
-		
+
 		self:Print("id="..proc.id)
 		self:Print("count="..proc.count)
 		self:Print("seconds="..proc.seconds)
@@ -895,44 +913,44 @@ end
 function Procodile:COMBAT_LOG_EVENT_UNFILTERED(event, timestamp, eventtype, srcGUID, srcName, srcFlags, dstGUID, dstName, dstFlags, ...)
 	local obj = select(1, ...)
 	local match = false
-	
+
 	if db.enabled or not db.combat then
 
-		if (dstName and UnitIsUnit(dstName,"player")) 
+		if (dstName and UnitIsUnit(dstName,"player"))
 		then
 			if eventtype == 'SPELL_AURA_APPLIED' --[[ or eventtype == 'SPELL_AURA_REFRESH' ]] then
 				for internalname,proc in pairs(db.tracked) do
 					if proc.id == obj then
 						match = true
-					
+
 						-- Cooldown record?
 						if proc.laststarted > 0 and (proc.cooldown == 0 or (time() - proc.laststarted < proc.cooldown)) then
 							proc.cooldown = time() - proc.laststarted
-							
+
 							if db.announce and proc.cooldown < 300 then
 								self:Pour(proc.name.." new cooldown detected: "..proc.cooldown.."s", 1.0, 0.5, 0.5)
 							end
 						end
-					
+
 						proc.count = proc.count + 1
 						proc.started = time()
 						proc.laststarted = proc.started
 						if db.verbose then
 							self:Print("|cff22ff22"..proc.name.." effect started")
 						end
-						
+
 						self:StartProcCooldownFrames(proc)
-						
+
 						-- Reset cooldown bar
 						if db.cooldowns and proc.cooldown > 0 then
 							local bar = self.cooldowns:GetBar(proc.name)
 							if not bar then
-								bar = self.cooldowns:NewTimerBar(proc.name, proc.name, proc.cooldown, proc.cooldown, proc.icon)
+								bar = Procodile:CreateBar(proc.name, proc.name, proc.cooldown, proc.cooldown, proc.icon)
 							end
 							bar:SetHeight(db.barheight)
 							bar:SetTimer(proc.cooldown, proc.cooldown)
 						end
-						
+
 						changed = true
 						self.Minimap:RefreshTooltip()
 					end
@@ -943,30 +961,30 @@ function Procodile:COMBAT_LOG_EVENT_UNFILTERED(event, timestamp, eventtype, srcG
 					self:Print("Spell "..spellname.." ("..obj..") applied.")
 				end
 			end
-			
+
 			if eventtype == 'SPELL_AURA_REMOVED' then
 				for internalname,proc in pairs(db.tracked) do
 					if proc.id == obj then
 						match = true
-					
+
 						proc.started = 0
 						if db.verbose then
 							self:Print("|cff22ff22"..proc.name.." effect ended")
 						end
-						
+
 						changed = true
 					end
 				end
-				
+
 				if not match and db.showspells then
 					local spellname = select(2, ...)
 					self:Print("Spell "..spellname.." ("..obj..") removed.")
 				end
 			end
-			
+
 --	        	self:Print("|cff22ff22"..eventtype..', srcGUID='..srcGUID..', dstGUID='..dstGUID..', obj='..obj)
 		end
-		
+
 	end
 end
 
@@ -988,7 +1006,7 @@ function Procodile:Toggle(enabled)
 			self:Print("|cffff2222"..L["TOGGLE_DISABLED"])
 		end
 	end
-	
+
 	-- Reset some variables we only track while enabled
 	if not db.enabled then
        	for internalname,proc in pairs(db.tracked) do
@@ -996,7 +1014,7 @@ function Procodile:Toggle(enabled)
        		-- proc.started = 0
        	end
 	end
-	
+
 	--ProcodileFu:OnUpdateFuBarText()
 	self.Minimap:RefreshTooltip()
 end
@@ -1006,9 +1024,9 @@ end
 local CooldownFrames = {}
 local ProcActionSlots = {}
 
-function Procodile:IsProcActionSlot(slot) 
+function Procodile:IsProcActionSlot(slot)
 	for proc,slots in pairs(ProcActionSlots) do
-		for _,procslot in pairs(slots) do 
+		for _,procslot in pairs(slots) do
 			if procslot == slot then
 				return true
 			end
@@ -1017,7 +1035,7 @@ function Procodile:IsProcActionSlot(slot)
 	return false
 end
 
-function Procodile:IsNewProcActionSlot(slot) 
+function Procodile:IsNewProcActionSlot(slot)
 	for key,proc in pairs(db.tracked) do
 		if SlotMatchesProc(slot,proc) then
 			return true
@@ -1042,24 +1060,24 @@ function Procodile:UpdateActionbarCooldowns()
 	--self:Print("Updating cooldown action slots")
 	ClearTable(ProcActionSlots)
 	for key,proc in pairs(db.tracked) do
-	
+
 		-- Removing old cooldown frames
 		local pcdframes = CooldownFrames[proc]
 		if pcdframes then
 			for key,pcdframe in pairs(pcdframes) do
 				if pcdframe then
 					pcdframe:Hide()
-					pcdframe:SetParent(nil) 
+					pcdframe:SetParent(nil)
 					pcdframes[key] = nil
-				end 
+				end
 			end
 		end
-		
+
 		-- Not creating cooldown frames if user doesn't want them
 		if not db.actionbarscds then
 			return
 		end
-		
+
 		-- Creating new cooldown frames and saving action slots
 		local actionbuttons, actionslots = self:GetActionSlotsForProc(proc)
 		if actionbuttons then
@@ -1076,7 +1094,7 @@ function Procodile:UpdateActionbarCooldowns()
 			CooldownFrames[proc] = cooldownframes
 		end
 		ProcActionSlots[proc] = actionslots
-		
+
 		self:UpdateProcCooldownFrames(proc)
 	end
 end
@@ -1090,7 +1108,7 @@ function Procodile:UpdateProcCooldownFrames(proc)
 				pcdframe:SetCooldown(GetTime() - (proc.cooldown - cooldownRemaining), proc.cooldown)
 			end
 		end
-	end 
+	end
 end
 
 
@@ -1101,9 +1119,9 @@ function Procodile:RemoveAllProcCooldownFrames()
 			for key,pcdframe in pairs(pcdframes) do
 				if pcdframe then
 					pcdframe:Hide()
-					pcdframe:SetParent(nil) 
+					pcdframe:SetParent(nil)
 					pcdframes[key] = nil
-				end 
+				end
 			end
 		end
 	end
@@ -1111,7 +1129,7 @@ end
 
 -- [[ ActionButton and ActionSlot search for procs ]] --
 
-function Procodile:GetActionSlotsForProc(proc) 
+function Procodile:GetActionSlotsForProc(proc)
 	local buttons = {}
 	local slots = {}
 	local bongos = IsAddOnLoaded("Bongos_AB")
@@ -1122,7 +1140,7 @@ function Procodile:GetActionSlotsForProc(proc)
 	if bartender then
 		self:LoadActionButtonSlotsForProc(buttons,slots,proc,'BT4Button%dSecure')
 	end
-	if not bongos then 
+	if not bongos then
 		-- Bongos surely disables Vanilla actionbars, so need to check for them
 		self:LoadDefaultActionBarSlotsForProc(buttons,slots,proc)
 	end
@@ -1134,11 +1152,11 @@ function Procodile:LoadDefaultActionBarSlotsForProc(buttons,slots,proc)
 	for _, barName in pairs(ActionBars) do
         for i = 1, 14 do
             local button = _G[barName .. 'Button' .. i]
-			
+
 			if button then
 				local slot = ActionButton_GetPagedID(button) or ActionButton_CalculateAction(button) or button:GetAttribute('action') or 0
 				self:SelectProcActionSlots(proc, button, buttons, slot, slots)
-			end             
+			end
         end
     end
 end
@@ -1151,7 +1169,7 @@ function Procodile:LoadActionButtonSlotsForProc(buttons,slots,proc,actionButtonI
 		if button then
 			local slot = button:GetAttribute('action') or 0
 			self:SelectProcActionSlots(proc, button, buttons, slot, slots)
-		end 
+		end
     end
 end
 
@@ -1165,14 +1183,14 @@ end
 function SlotMatchesProc(slot,proc)
 	local match = false
 	if HasAction(slot) then
-		local actionType, id = GetActionInfo(slot)		
-		if actionType == 'item' then 
+		local actionType, id = GetActionInfo(slot)
+		if actionType == 'item' then
 			local itemName, link, quality, iLevel, reqLevel, class, subclass, maxStack, equipSlot, texture, vendorPrice = GetItemInfo(id)
-			if itemName == proc.name then 
+			if itemName == proc.name then
 				match = true
 			end
-		elseif actionType == 'macro' then 
-			if GetActionTexture(slot) == proc.icon then 
+		elseif actionType == 'macro' then
+			if GetActionTexture(slot) == proc.icon then
 				match = true
 			end
 		end
@@ -1203,9 +1221,9 @@ function Procodile:CheckActionSlots()
 		end
 	end
 	ClearTable(ScheduledSlots)
-	
+
 	update = update or ActionBarCooldownsNeedUpdate
-	if update then 
+	if update then
 		self:UpdateActionbarCooldowns()
 		ActionBarCooldownsNeedUpdate = false
 	end
@@ -1215,14 +1233,14 @@ function ClearTable(mytable)
 	for k in next, mytable do rawset(mytable, k, nil) end
 end
 
-local ProcsNeedRescan = false 
+local ProcsNeedRescan = false
 
 function Procodile:ScheduleProcsScan()
 	ProcsNeedRescan = true
 end
 
 function Procodile:PerformScheduledProcScan()
-	if ProcsNeedRescan then 
+	if ProcsNeedRescan then
 		self:ScanForProcs()
 		ProcsNeedRescan = false
 	end
@@ -1242,7 +1260,7 @@ function Procodile:ShowingMinimap()
 		for _ in pairs(db.tracked) do procs = procs + 1 end
 		if procs == 0 then
 			autoHideAllows = false
-		end 
+		end
 	end
 	return autoHideAllows and db.showMinimap
 end
@@ -1286,11 +1304,11 @@ function Procodile:OnShapeshift(form)
 		--self:Print("Shapeshift change, form: "..form)
 		if self:IsDruidWearingFunkyTrinket() then
 			self:ScanForProcs()
-		end 
-	end 
+		end
+	end
 end
 
-function Procodile:IsDruidWearingFunkyTrinket() 
+function Procodile:IsDruidWearingFunkyTrinket()
 	local trinketId = 30664
 	for slotid = 1, 20 do
 		local itemlink = GetInventoryItemLink("player", slotid)

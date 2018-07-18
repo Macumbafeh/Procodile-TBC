@@ -52,6 +52,9 @@ L["BARWIDTH_DESC"] = "Sets the width of the cooldown bars."
 L["BARHEIGHT_NAME"] = "Bar height"
 L["BARHEIGHT_DESC"] = "Sets the height of the cooldown bars."
 
+L["BARFLASH_NAME"] = "Bar flash"
+L["BARFLASH_DESC"] = "Sets the number of seconds left below the cooldown bars start flashing."
+
 L["BARTEST_NAME"] = "Test bars"
 L["BARTEST_DESC"] = "Shows an example cooldown bar."
 
